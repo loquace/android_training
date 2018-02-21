@@ -17,6 +17,10 @@ package com.example.android.miwok;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class NumbersActivity extends AppCompatActivity {
 
@@ -24,5 +28,47 @@ public class NumbersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_numbers);
+        LinearLayout linearLayout = linearLayout();
+        int i;
+        RelativeLayout numbersRelativeLayout = (RelativeLayout) findViewById(R.id.mainLayout);
+
+        String[] words = new String[10];
+        words[0] = "Un";
+        words[1] = "Deux";
+        words[2] = "Trois";
+        words[3] = "Quatre";
+        words[4] = "Cinq";
+        words[5] = "Six";
+        words[6] = "Sept";
+        words[7] = "Huit";
+        words[8] = "Neuf";
+        words[9] = "Dix";
+
+
+        for (i = 0; i <= 9; i++) {
+            linearLayout.addView(textView(words[i]));
+        }
+
+        if (numbersRelativeLayout != null) {
+            numbersRelativeLayout.addView(linearLayout);
+        }
     }
+
+    private TextView textView(String numberInLetter) {
+        TextView textView = new TextView(this);
+        textView.setPadding(8, 8, 8, 8);
+        textView.setTextSize(16);
+        textView.setText(numberInLetter);
+        return textView;
+    }
+
+    private LinearLayout linearLayout() {
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        return linearLayout;
+    }
+
+
 }
+
