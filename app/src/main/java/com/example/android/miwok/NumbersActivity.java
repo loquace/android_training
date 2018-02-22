@@ -18,9 +18,13 @@ package com.example.android.miwok;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class NumbersActivity extends AppCompatActivity {
 
@@ -28,30 +32,39 @@ public class NumbersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_numbers);
-        LinearLayout linearLayout = linearLayout();
-        int i;
-        RelativeLayout numbersRelativeLayout = (RelativeLayout) findViewById(R.id.mainLayout);
+        // sert pour ajout à la volle de textviews
+        //LinearLayout linearLayout = linearLayout();
+        //int i;
+        //RelativeLayout numbersRelativeLayout = (RelativeLayout) findViewById(R.id.mainLayout);
 
-        String[] words = new String[10];
-        words[0] = "Un";
-        words[1] = "Deux";
-        words[2] = "Trois";
-        words[3] = "Quatre";
-        words[4] = "Cinq";
-        words[5] = "Six";
-        words[6] = "Sept";
-        words[7] = "Huit";
-        words[8] = "Neuf";
-        words[9] = "Dix";
+        ArrayList<Word> words;
+        words = new ArrayList<Word>();
 
+        words.add(new Word("one","lutti"));
+        words.add(new Word("two","otiiko"));
+        words.add(new Word("three","tolookosu"));
+        words.add(new Word("four","oyyisa"));
+        words.add(new Word("five","massokka"));
+        words.add(new Word("six","temmokka"));
+        words.add(new Word("seven","tenekaku"));
+        words.add(new Word("eight","kawinta"));
+        words.add(new Word("nine","wo'e"));
+        words.add(new Word("ten","na'aacha"));
 
-        for (i = 0; i <= 9; i++) {
-            linearLayout.addView(textView(words[i]));
+        WordAdapter adapter= new WordAdapter(this, R.layout.list_item, words);
+
+        ListView listView = (ListView) findViewById(R.id.list);
+
+        listView.setAdapter(adapter);
+        /* ajout de textview a la vollée - couteux en memoire si beaucoup de donnees
+        for (i = 0; i < words.size() ; i++) {
+            linearLayout.addView(textView(words.get(i)));
         }
 
         if (numbersRelativeLayout != null) {
             numbersRelativeLayout.addView(linearLayout);
         }
+        */
     }
 
     private TextView textView(String numberInLetter) {
