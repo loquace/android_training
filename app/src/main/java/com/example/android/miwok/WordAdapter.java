@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 
 public class WordAdapter extends ArrayAdapter<Word>{
-    
+
 
     public WordAdapter(NumbersActivity numbersActivity, int list_item, ArrayList<Word> words) {
         super(numbersActivity, list_item, words);
