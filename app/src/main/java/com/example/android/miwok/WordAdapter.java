@@ -1,8 +1,10 @@
 package com.example.android.miwok;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +20,14 @@ import java.util.ArrayList;
 
 public class WordAdapter extends ArrayAdapter<Word>{
 
+    private int mColorResourceId;
 
-    public WordAdapter(NumbersActivity numbersActivity, int list_item, ArrayList<Word> words) {
-        super(numbersActivity, list_item, words);
+    public WordAdapter(Activity mActivity, ArrayList<Word> words, int colorResourceId) {
+        super(mActivity,0, words);
+        mColorResourceId =colorResourceId;
     }
 
+    @SuppressLint("WrongConstant")
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -49,11 +54,18 @@ public class WordAdapter extends ArrayAdapter<Word>{
         defaultTextView.setText(currentWord.getDefaultTranslation());
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
-       // ImageView iconView = (ImageView) listItemView.findViewById(R.id.list_item_icon);
-        // Get the image resource ID from the current AndroidFlavor object and
-        // set the image to iconView
-        //iconView.setImageResource(currentAndroidFlavor.getImageResourceId());
+        ImageView iconView = (ImageView) listItemView.findViewById(R.id.image);
+        if (currentWord.hasImage()) {
+            // Get the image resource ID from the current AndroidFlavor object and
+            // set the image to iconView
+            iconView.setImageResource(currentWord.getImageResourceId());
+            iconView.setVisibility(View.VISIBLE);
+        }
+        else iconView.setVisibility(View.GONE);
 
+        View textContainer = listItemView.findViewById(R.id.text_container);
+        int color = ContextCompat.getColor(getContext(), mColorResourceId);
+        textContainer.setBackgroundColor(color);
         // Return the whole list item layout (containing 2 TextViews and an ImageView)
         // so that it can be shown in the ListView
         return listItemView;
